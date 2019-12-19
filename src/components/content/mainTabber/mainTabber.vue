@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div style="z-index:9999">
 		<tabber>
 			<tabberItem path="/home" activeColor="pink">
 				<img slot="item-icon" src="~assets/img/tabbar/home.svg" alt="">

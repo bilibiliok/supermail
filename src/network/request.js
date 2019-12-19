@@ -4,7 +4,8 @@ export function request(config) {
 	// 创建axios实例
 	// return new Promise((resolve,reject)=>{
 		const instance = axios.create({
-			baseURL:'http://123.207.32.32:8000',
+			baseURL:'http://106.54.54.237:8000/api/v1',
+			// baseURL: "http://123.207.32.32:8000/api/v2",
 			timeout:5000
 		})
 		// axios拦截器
@@ -25,7 +26,7 @@ export function request(config) {
 			console.log(result);
 			return result.data
 		}), err =>{
-			console.log('111111',err);
+			// console.log('111111',err);
 		}
 		// 发送真正的网络请求
 		return instance(config) // 返回一个promise
