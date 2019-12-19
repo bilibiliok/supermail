@@ -47,7 +47,7 @@ export default {
 		},
 		refresh() {
 			this.scroll && this.scroll.refresh()
-			console.log('打印几次');
+			// console.log('打印几次');
 		} 
 	},
 
