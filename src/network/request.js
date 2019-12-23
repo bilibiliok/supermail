@@ -23,7 +23,7 @@ export function request(config) {
 		})
 		// 响应拦截
 		instance.interceptors.response.use(result =>{
-			console.log(result);
+			// console.log(result);
 			return result.data
 		}), err =>{
 			// console.log('111111',err);
