@@ -52,6 +52,9 @@ import {getHomeMultidata,getHomeGoods} from '../../network/home'
 import { debounce } from "../../common/utils";
 import { log } from 'util'
 
+			
+import { itemListenerMixin, backTopMixin } from '../../common/mixin'
+
 export default {
 	components:{
 		HomeSwiper,
@@ -61,8 +64,8 @@ export default {
 		NarBar,
 		GoodList,
 		Scroll,
-		BackTop
 	},
+	mixins:[itemListenerMixin, backTopMixin],
 	data() {
 		return {
 			// result: null,
@@ -75,10 +78,9 @@ export default {
 				'sell': {page: 1, list: []}
 			},
 			currentType:'pop',
-			isshowBackTop: false,
 			tabOffSetTop: 0,
 			isTabfixed: false,
-			savey: 0
+			savey: 0,
 		}
 	},
 	computed: {
@@ -97,11 +99,13 @@ export default {
 	mounted() {
 		
 		// 监听item图片加载完成
-		const refresh = debounce(this.$refs.scroll.refresh,200)
-		this.$bus.$on('itemImageLoad',()=>{
-			refresh()
-		})
-		console.log('bus',this.$bus.$on);
+		// const newRefresh = debounce(this.$refs.scroll.refresh,100)
+		// // 对监听事件进行保存
+		// this.itemImgListener = ()=>{
+		// 	newRefresh()
+		// }
+		// this.$bus.$on('itemImageLoad',this.itemImgListener)
+		// console.log('bus',this.$bus.$on);
 		
 		// 获取tabControl的offSetTop
 		// 所有组件都有一个属性$el: 获取组件中的元素 
@@ -115,8 +119,8 @@ export default {
 	},
 	deactivated() {
 		this.savey = this.$refs.scroll.getScrollY() 
-		console.log(11111111);
-		
+		// 对监听事件进行取消
+		this.$bus.$off('itemImageLoad',this.itemImgListener)
 	},
 	destroyed() {
 		console.log('destroy');
@@ -156,9 +160,6 @@ export default {
 			}
 			this.$refs.tabControl1.currentIndex = index
 			this.$refs.tabControl2.currentIndex = index
-		},
-		backClick() {
-			this.$refs.scroll.scrollTo(0,0)
 		},
 		// 显示图标
 		contentScroll(position) {

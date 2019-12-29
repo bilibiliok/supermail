@@ -119,8 +119,8 @@ export default {
 		
 	},
 	mounted() {
-		console.log(this.$refs.aaaa);
-		console.log(document.querySelector('.wrapper'));
+		// console.log(this.$refs.aaaa);
+		// console.log(document.querySelector('.wrapper'));
 		this.scroll = new BScroll(this.$refs.aaaa,{
 			probeType:3,
 			pullUpLoad:true
@@ -129,12 +129,12 @@ export default {
 			// console.log(position);
 		})
 		this.scroll.on('pullingUp',()=>{
-			console.log('上拉加载更多');
+			// console.log('上拉加载更多');
 		})
 	},
 	methods: {
 		aaaaa() {
-			console.log('1111')
+			// console.log('1111')
 		}
 	},
 }

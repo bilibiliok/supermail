@@ -29,6 +29,9 @@
           </table>
         </div>
       </div>
+      <div class="shop-bottom">
+        <div class="enter-shop">进店逛逛</div>
+      </div>
     </div>
 </template>
 
@@ -114,5 +117,15 @@
   .shop-bottom{
     margin-top: 10px;
     text-align: center
+  }
+  .enter-shop{
+    width: 150px;
+    font-size: 14px;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 10px;
+    background: #f2f5f8;
+    display: inline-block
   }
 </style>

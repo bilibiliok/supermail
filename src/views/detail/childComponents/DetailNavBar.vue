@@ -1,5 +1,5 @@
 <template>
-	<div id="detail">
+	<div>
 		<nar-bar>
 			<div @click="back" slot="left" class="back">
 				<img src="~assets/img/common/back.svg" alt="">
@@ -8,7 +8,6 @@
 				<div @click="titleClick(index)" :class="{active: index === currentIndex}" class="title-item" v-for="(item,index) in title" :key="item">{{item}}</div>
 			</div>
 		</nar-bar>
-		
 	</div>
 </template>
 <script>
@@ -30,6 +29,7 @@ export default {
 	methods:{
 		titleClick(index) {
 			this.currentIndex  = index
+			this.$emit('titleClick',index)
 		},
 		back() {
 			this.$router.push('/home')
