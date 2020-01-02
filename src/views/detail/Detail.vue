@@ -2,6 +2,11 @@
 	<div id="detail">
 		<detail-nav-bar ref="nav" @titleClick="titleClick" class="detail-nav"></detail-nav-bar>
 		<scroll class="content" :probe-type="3" ref="scroll" @scroll="contentScroll">
+			<!-- <ul>
+				<li v-for="item in $store.state.cartList" :key="item.iid">
+					{{item}}
+				</li>
+			</ul> -->
 			<detail-swiper :top-images="topImages"></detail-swiper>
 			<detail-base-info :goods="goods"></detail-base-info>
 			<detail-shop-info  :shop="shop"></detail-shop-info>
@@ -9,9 +14,12 @@
 			<detail-param-info ref="params" :param-info="paramInfo"></detail-param-info>
 			<detail-comment-info ref="comment" :comment-info="commentInfo"></detail-comment-info>
 			<good-list ref="recommend" :goods="recommends"></good-list>
+		
 		</scroll>
+		
 		<detail-bottom-bar @addToCart="addToCart"></detail-bottom-bar>
 		<back-top v-show="isshowBackTop" @click.native="backClick"></back-top>
+		<!-- <toast :message="message" :show="show"></toast> -->
 	</div>
 </template>
 <script>
@@ -33,12 +41,17 @@ import DetailBottomBar from './childComponents/DetailBottomBar'
 import Scroll from 'components/common/scroll/Scroll'
 
 import GoodList from 'components/content/goods/GoodsList'
+// 导入提示框
+// import Toast from 'components/common/toast/Toast'
 // 导入防抖函数
 import { debounce } from "../../common/utils";
 // 混入模式 
 import { itemListenerMixin, backTopMixin } from '../../common/mixin'
 
 import {getDetail, Goods, Shop, GoodsParam,getRecommend} from 'network/detail'
+
+// 映射actions中的方法
+import { mapActions } from "vuex";
 export default {
 	name: 'Detail',
 	data() {
@@ -53,7 +66,9 @@ export default {
 			recommends: [],
 			themeTopYs: [],
 			getThemeTopy: null,
-			currentIndex: 0
+			currentIndex: 0,
+			// message: '',
+			// show: ''
 		}
 	},
 	mixins: [itemListenerMixin,backTopMixin],
@@ -67,6 +82,7 @@ export default {
 		DetailCommentInfo,
 		Scroll,
 		GoodList,
+		// Toast,
 		DetailBottomBar
 	},
 	created() {
@@ -129,7 +145,20 @@ export default {
 			console.log(this.themeTopYs);
 		},100)
 	},
+	mounted() {
+			this.$nextTick(()=>{
+				// 根据最新的数据，对应的dom已经显示出来了
+				// 图片依然没有能加载完，（目前获取到offsetTop不包含其中的图片）
+				this.themeTopYs = []
+				this.themeTopYs.push(0)
+				this.themeTopYs.push(this.$refs.params.$el.offsetTop)
+				this.themeTopYs.push(this.$refs.comment.$el.offsetTop)
+				this.themeTopYs.push(this.$refs.recommend.$el.offsetTop)
+				console.log(this.themeTopYs);
+			})
+	},
 	methods: {
+		...mapActions(['addCart']),
 		imageLoad() {
 			this.$refs.scroll.refresh()
 			this.getThemeTopy()
@@ -142,7 +171,7 @@ export default {
 		},
 		// 监听首页的变化
 		titleClick(index) {
-			console.log(this.themeTopYs[index]);
+			// console.log(this.themeTopYs[index]);
 			this.$refs.scroll.scrollTo(0, -this.themeTopYs[index], 100)
 		},
 		// 监听滚动事件
@@ -167,7 +196,7 @@ export default {
 				// 第二种写法，设置一个最大值
 				if(this.currentIndex !== i && (positiony >= this.themeTopYs[i] && positiony < this.themeTopYs[i+1])) {
 					this.currentIndex = i
-					console.log(this.currentIndex);
+					// console.log(this.currentIndex);
 					this.$refs.nav.currentIndex = this.currentIndex
 				}
 				// if(this.currentIndex !== i && (i< length-1 && positiony >= this.themeTopYs[i] && positiony < this.themeTopYs[i+1])||(i === length - 1 && positiony >= this.themeTopYs[i])) {
@@ -191,12 +220,30 @@ export default {
 
 
 			// 2.将商品添加到购物车界面
-			this.$store.commit('addCart',product)
+			// this.$store.commit('addCart',product)
+			// this.$store.dispatch('addCart', product).then(res =>{
+			// 	console.log('11111',res);
+			// })
+			this.addCart(product).then(res =>{
+				console.log('11111',res);
+				console.log('toast',this.$toast.show);
+				this.$toast.showMessage()
+				
+				
+				// this.message = res
+				// this.show = true
+
+				// setTimeout(() => {
+				// 	this.show = false
+				// }, 2000);
+			})
+			// 3.toast 添加到购物车成功
+
 		}
 	},
-	mounted() {
+	// mounted() {
 		
-	},
+	// },
 	destroyed() {
 		this.$bus.$off('itemImageLoad',this.itemImgListener)
 	}
