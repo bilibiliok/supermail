@@ -1,6 +1,8 @@
 <template>
 	<div class="wrapper" ref="aaaa">
-		
+		<ul class="content">
+			
+		</ul>
 	</div>
 </template>
 <script>

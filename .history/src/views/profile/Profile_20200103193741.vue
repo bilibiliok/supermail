@@ -86,7 +86,7 @@ export default {
 		color: #ff5f3e;
 		font-size: 24px;
 	}
-	.order-list, .service-list{
+	.order-list{
 		margin-top: 6px
 	}
 </style>

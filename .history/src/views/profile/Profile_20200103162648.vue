@@ -30,8 +30,8 @@
 				</div>
 			</div>
 		</section>
-		<list-view class="order-list" :list-data="orderList"></list-view>
-		<list-view class="service-list" :list-data="serviceList"></list-view>
+		<list-view :list-data="orderList"></list-view>
+		<list-view :list-data></list-view>
 	</div>
 </template>
 <script>
@@ -85,8 +85,5 @@ export default {
 		font-weight: 700;
 		color: #ff5f3e;
 		font-size: 24px;
-	}
-	.order-list, .service-list{
-		margin-top: 6px
 	}
 </style>

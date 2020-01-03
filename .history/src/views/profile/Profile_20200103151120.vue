@@ -23,40 +23,27 @@
 			</div>
 			<div class="account-item">
 				<div class="number">
-					<span class="balance">0</span>分
+					<span class="balance">0.00</span>元
 				</div>
 				<div class="account-info">
-					我的积分
+					我的余额
 				</div>
 			</div>
 		</section>
-		<list-view class="order-list" :list-data="orderList"></list-view>
-		<list-view class="service-list" :list-data="serviceList"></list-view>
 	</div>
 </template>
 <script>
 import NarBar from 'components/common/navbar/NavBar'
 import UserInfo from './childComps/UserInfo'
-
-import ListView from './childComps/ListView'
 export default {
 	data() {
 		return {
-			orderList: [
-				{icon: '#order', iconColor: '#ff8198', info: '我的消息'},
-				{icon: '#point', iconColor: '#fc7b53', info: '积分商城'},
-				{icon: '#vip', iconColor: '#ffc636', info: '会员卡'},
-			],
-			serviceList: [
-				{icon: '#service', iconColor: '#ff8198', info: '我的购物车'},
-				{icon: '#download', iconColor: '#ff8198', info: '下载购物APP'},
-			]
+
 		}
 	},
 	components:{
 		NarBar,
-		UserInfo,
-		ListView
+		UserInfo
 	}
 }
 </script>
@@ -72,21 +59,5 @@ export default {
 	}
 	.account{
 		display: flex;
-	}
-	.account-item{
-		padding: 18px;
-		font-size: 13px;
-		background-color: #fff;
-		margin-right: 1px;
-		width: 100%;
-		text-align: center
-	}
-	.account-item .balance{
-		font-weight: 700;
-		color: #ff5f3e;
-		font-size: 24px;
-	}
-	.order-list, .service-list{
-		margin-top: 6px
 	}
 </style>

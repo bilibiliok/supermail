@@ -30,15 +30,11 @@
 				</div>
 			</div>
 		</section>
-		<list-view class="order-list" :list-data="orderList"></list-view>
-		<list-view class="service-list" :list-data="serviceList"></list-view>
 	</div>
 </template>
 <script>
 import NarBar from 'components/common/navbar/NavBar'
 import UserInfo from './childComps/UserInfo'
-
-import ListView from './childComps/ListView'
 export default {
 	data() {
 		return {
@@ -48,15 +44,14 @@ export default {
 				{icon: '#vip', iconColor: '#ffc636', info: '会员卡'},
 			],
 			serviceList: [
-				{icon: '#service', iconColor: '#ff8198', info: '我的购物车'},
-				{icon: '#download', iconColor: '#ff8198', info: '下载购物APP'},
+			{icon: '#service', iconColor: '#ff8198', info: '我的购物车'},
+			{icon: '#download', iconColor: '#ff8198', info: '下载购物APP'},
 			]
 		}
 	},
 	components:{
 		NarBar,
-		UserInfo,
-		ListView
+		UserInfo
 	}
 }
 </script>
@@ -85,8 +80,5 @@ export default {
 		font-weight: 700;
 		color: #ff5f3e;
 		font-size: 24px;
-	}
-	.order-list, .service-list{
-		margin-top: 6px
 	}
 </style>
